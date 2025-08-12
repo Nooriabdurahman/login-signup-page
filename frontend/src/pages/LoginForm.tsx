@@ -3,12 +3,32 @@ import { useState } from "react";
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Add your login API call here
-    console.log("Logging in with", { email, password });
-  };
+  try {
+    const res = await fetch("http://localhost:3000/users/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.error || "Login failed");
+    } else {
+      console.log("Login success:", data);
+      localStorage.setItem("token", data.token);
+      alert("Login successful!");
+      // Redirect or update UI here if needed
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+  }
+};
+
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
