@@ -4,7 +4,11 @@ const userRoutes = require('../src/routes/userRoute');
 const app = express();
 const cors = require('cors');
 app.use(cors());
+const { PrismaClient } = require('../generated/prisma/client');
 
+
+
+const prisma = new PrismaClient();
 
 
 
@@ -15,3 +19,5 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/users', userRoutes);
 
 module.exports = app;
+
+

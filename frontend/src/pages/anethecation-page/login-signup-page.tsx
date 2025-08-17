@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import LoginForm from "./LoginForm";
-import SignupForm from "./SignupFrom";
+import LoginForm from "../anethecation-page/LoginForm";
+import SignupForm from "../anethecation-page/SignupFrom";
 
 export default function LoginSignup() {
   const navigate = useNavigate();

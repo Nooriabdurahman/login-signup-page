@@ -1,14 +1,13 @@
 const bcrypt = require('bcryptjs');
-const prisma = require('../prisma-connect/prisma');
+const prisma = require('../connect/prisma');
 const generateToken = require('../utils/genratetoken');
+const generateCode = require('../utils/genratecode');
 
-// Check if email exists
 async function existEmail(email) {
   const existingUser = await prisma.user.findUnique({ where: { email } });
   return existingUser !== null;
 }
 
-// GET all users
 exports.getUsers = async (req, res) => {
   try {
     const users = await prisma.user.findMany();
@@ -20,7 +19,6 @@ exports.getUsers = async (req, res) => {
   }
 };
 
-// CREATE new user
 exports.createUser = async (req, res) => {
   const { email, name, password } = req.body;
 
@@ -44,7 +42,6 @@ exports.createUser = async (req, res) => {
   }
 };
 
-// LOGIN
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -65,3 +62,6 @@ exports.loginUser = async (req, res) => {
     res.status(500).json({ error: 'Login failed' });
   }
 };
+
+
+
